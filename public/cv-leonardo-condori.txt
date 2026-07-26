@@ -1,0 +1,14 @@
+LEONARDO MATIAS CONDORI NAVARRO
+Estudiante de Ingenieria de Software
+Lima, Peru
+
+PERFIL
+Desarrollador orientado a soluciones Full Stack y analisis de datos.
+
+TECNOLOGIAS
+Python, Java, JavaScript, SQL, React, Astro, Node.js, Power BI,
+PostgreSQL, Git, Docker y AWS.
+
+NOTA
+Reemplaza este archivo por tu CV final en PDF y actualiza el enlace
+en src/components/Hero.tsx.
