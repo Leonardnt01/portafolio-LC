@@ -13,7 +13,7 @@ export default function About() {
     <section className="content-section section-shell reveal-section" id="about">
       <div className="about-grid">
         <div className="about-copy">
-          <SectionHeading title="Quién soy" />
+          <SectionHeading kicker="Perfil" title="Quién soy" />
           <p>
             Soy un apasionado estudiante de Ingeniería de Software en la Universidad Tecnológica
             del Perú (UTP). Mi enfoque se centra en desarrollar soluciones eficientes, con una
@@ -43,15 +43,19 @@ export default function About() {
         <div className="about-gallery" aria-label="Espacio de trabajo de desarrollo">
           <figure className="gallery-image gallery-image-main">
             <img
-              src="/images/portfolio-02.jpg"
+              src="/images/portfolio-02.webp"
               alt="Teclado mecánico en un espacio de desarrollo moderno"
+              width="512"
+              height="279"
               loading="lazy"
             />
           </figure>
           <figure className="gallery-image gallery-image-offset">
             <img
-              src="/images/portfolio-03.jpg"
+              src="/images/portfolio-03.webp"
               alt="Monitores con código y visualizaciones de datos"
+              width="512"
+              height="279"
               loading="lazy"
             />
           </figure>
