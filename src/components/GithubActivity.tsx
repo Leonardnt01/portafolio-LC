@@ -6,7 +6,8 @@ import SectionHeading from './SectionHeading';
 interface GithubActivityProps {
   profile: GithubProfile | null;
 }
-
+   
+ 
 const dateFormatter = new Intl.DateTimeFormat('es-PE', { month: 'short', year: 'numeric' });
 
 export default function GithubActivity({ profile }: GithubActivityProps) {
