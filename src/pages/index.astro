@@ -1,6 +1,43 @@
 ---
 import PortfolioApp from '../components/PortfolioApp';
+import { contact } from '../data/portfolio';
+import { fetchGithubProfile } from '../lib/github';
 import '../styles/global.css';
+
+// Se resuelve en build: el navegador no hace ninguna peticion a GitHub.
+const githubProfile = await fetchGithubProfile(contact.githubUser);
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/og.jpg', Astro.site).href;
+const description =
+  'Portafolio de Leonardo Matías Condori Navarro, estudiante de Ingeniería de Software y desarrollador Full Stack.';
+
+/**
+ * Datos estructurados Schema.org. Permiten a Google entender que la pagina
+ * describe a una persona concreta y mostrar resultados enriquecidos cuando
+ * alguien busca su nombre. Solo se declara lo que es verificable.
+ */
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: contact.name,
+  alternateName: contact.shortName,
+  jobTitle: contact.role,
+  description,
+  url: canonical,
+  image: ogImage,
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Universidad Tecnológica del Perú',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Lima',
+    addressCountry: 'PE',
+  },
+  knowsLanguage: ['es', 'en'],
+  sameAs: [contact.github, contact.linkedin].filter(Boolean),
+};
 ---
 
 <!doctype html>
@@ -8,27 +45,31 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Portafolio de Leonardo Matías Condori Navarro, estudiante de Ingeniería de Software y desarrollador Full Stack."
-    />
+    <meta name="description" content={description} />
     <meta name="theme-color" content="#080b10" />
+    <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_PE" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={contact.shortName} />
     <meta property="og:title" content="Leonardo Condori | Software Engineer" />
     <meta
       property="og:description"
       content="Desarrollo Full Stack, datos y soluciones construidas con intención."
     />
-    <meta property="og:image" content="/og.png" />
+    {/* Las redes sociales exigen URL absoluta: con una relativa no sale la imagen. */}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Leonardo Condori | Software Engineer" />
     <meta
       name="twitter:description"
       content="Desarrollo Full Stack, datos y soluciones construidas con intención."
     />
-    <meta name="twitter:image" content="/og.png" />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href="/favicon.ico" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -36,8 +77,25 @@ import '../styles/global.css';
       rel="stylesheet"
     />
     <title>Leonardo Matías Condori Navarro | Software Engineer</title>
+    <!--
+      Los iconos de marca del stack pesan ~20 KB gzip y viven bajo el pliegue.
+      Se cargan de forma asíncrona para no bloquear el primer render.
+    -->
+    <link rel="preload" as="style" href="/tech-icons.css" id="tech-icons-css" />
+    <script is:inline>
+      // La descarga arranca ya con el preload; al terminar se aplica como hoja
+      // de estilos, sin haber bloqueado el primer render.
+      document.getElementById('tech-icons-css')?.addEventListener(
+        'load',
+        function () {
+          this.rel = 'stylesheet';
+        },
+        { once: true },
+      );
+    </script>
+    <noscript><link rel="stylesheet" href="/tech-icons.css" /></noscript>
   </head>
   <body>
-    <PortfolioApp client:load />
+    <PortfolioApp client:load githubProfile={githubProfile} />
   </body>
 </html>

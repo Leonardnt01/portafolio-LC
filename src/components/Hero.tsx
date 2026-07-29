@@ -1,6 +1,6 @@
 import { ArrowDown, ArrowRight, Download, GitFork, Link2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { roles } from '../data/portfolio';
+import { contact, roles } from '../data/portfolio';
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -60,15 +60,18 @@ export default function Hero() {
             </a>
           </div>
 
+          {/* Solo se muestra el enlace que existe de verdad. */}
           <div className="social-links">
-            <a href="https://github.com" target="_blank" rel="noreferrer">
+            <a href={contact.github} target="_blank" rel="noreferrer">
               <GitFork size={19} aria-hidden="true" />
               GitHub
             </a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">
-              <Link2 size={19} aria-hidden="true" />
-              LinkedIn
-            </a>
+            {contact.linkedin ? (
+              <a href={contact.linkedin} target="_blank" rel="noreferrer">
+                <Link2 size={19} aria-hidden="true" />
+                LinkedIn
+              </a>
+            ) : null}
           </div>
         </div>
 
@@ -76,7 +79,13 @@ export default function Hero() {
           <span className="portrait-orbit orbit-one" aria-hidden="true" />
           <span className="portrait-orbit orbit-two" aria-hidden="true" />
           <div className="portrait-frame">
-            <img src="/images/portfolio-01.jpg" alt="Leonardo Matías Condori Navarro" />
+            <img
+              src="/images/portfolio-01.webp"
+              alt="Leonardo Matías Condori Navarro"
+              width="512"
+              height="512"
+              fetchPriority="high"
+            />
           </div>
           <div className="portrait-badge">
             <Code2Icon />

@@ -1,15 +1,21 @@
 import { useEffect } from 'react';
 import About from './About';
-import Blog from './Blog';
 import Contact from './Contact';
+import Education from './Education';
 import Footer from './Footer';
 import GithubActivity from './GithubActivity';
 import Hero from './Hero';
 import Navigation from './Navigation';
 import Projects from './Projects';
 import TechStack from './TechStack';
+import type { GithubProfile } from '../lib/github';
 
-export default function PortfolioApp() {
+interface PortfolioAppProps {
+  /** Resuelto en build time desde el frontmatter de Astro. */
+  githubProfile: GithubProfile | null;
+}
+
+export default function PortfolioApp({ githubProfile }: PortfolioAppProps) {
   useEffect(() => {
     const sections = document.querySelectorAll<HTMLElement>('.reveal-section');
     const observer = new IntersectionObserver(
@@ -34,10 +40,10 @@ export default function PortfolioApp() {
       <main>
         <Hero />
         <About />
+        <Education />
         <Projects />
         <TechStack />
-        <GithubActivity />
-        <Blog />
+        <GithubActivity profile={githubProfile} />
         <Contact />
       </main>
       <Footer />

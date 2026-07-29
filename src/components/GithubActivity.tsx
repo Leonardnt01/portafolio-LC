@@ -1,85 +1,111 @@
-import { ExternalLink, GitFork, GitPullRequest, Star } from 'lucide-react';
+import { ExternalLink, GitFork, Star } from 'lucide-react';
+import { contact } from '../data/portfolio';
+import type { GithubProfile } from '../lib/github';
 import SectionHeading from './SectionHeading';
 
-const contributionLevels = Array.from({ length: 84 }, (_, index) => {
-  const value = (index * 7 + index * index * 3) % 11;
-  return value < 4 ? 0 : value < 7 ? 1 : value < 9 ? 2 : 3;
-});
+interface GithubActivityProps {
+  profile: GithubProfile | null;
+}
 
-export default function GithubActivity() {
+const dateFormatter = new Intl.DateTimeFormat('es-PE', { month: 'short', year: 'numeric' });
+
+export default function GithubActivity({ profile }: GithubActivityProps) {
+  // Sin datos reales no se renderiza nada: mejor ausencia que cifras inventadas.
+  if (!profile) return null;
+
   return (
     <section className="github-section reveal-section" id="github">
       <div className="section-shell">
         <SectionHeading
+          kicker="Código abierto"
           title="Actividad en GitHub"
           description="Código, experimentos y proyectos que documentan mi aprendizaje continuo."
           align="center"
         />
 
         <div className="github-layout">
-          <aside className="github-profile">
-            <img src="/images/portfolio-01.jpg" alt="Avatar de Leonardo Condori" loading="lazy" />
-            <h3>leomcondori</h3>
-            <p>Software Engineer & Data Enthusiast</p>
+          <aside className="github-profile glass-card">
+            <img
+              src={profile.avatarUrl}
+              alt={`Avatar de ${profile.name}`}
+              width="512"
+              height="512"
+              loading="lazy"
+            />
+            <h3>{profile.login}</h3>
+            {profile.bio ? <p>{profile.bio}</p> : null}
             <div className="github-stats">
               <span>
-                <strong>24</strong>
+                <strong>{profile.publicRepos}</strong>
                 Repos
               </span>
-              <span>
-                <strong>1.2k</strong>
-                Stars
-              </span>
+              {profile.languages[0] ? (
+                <span>
+                  <strong>{profile.languages[0].name}</strong>
+                  Principal
+                </span>
+              ) : null}
             </div>
-            <a href="https://github.com" target="_blank" rel="noreferrer">
+            <a href={profile.url} target="_blank" rel="noreferrer">
               Ver perfil
               <ExternalLink size={16} aria-hidden="true" />
             </a>
           </aside>
 
-          <div className="github-dashboard">
+          <div className="github-dashboard glass-card">
             <div className="dashboard-title">
               <div>
-                <span>Contribuciones</span>
-                <strong>Trabajo constante, paso a paso</strong>
+                <span>Lenguajes</span>
+                <strong>En qué escribo el código</strong>
               </div>
-              <GitPullRequest size={23} aria-hidden="true" />
+              <Star size={23} aria-hidden="true" />
             </div>
 
-            <div className="heatmap-scroll" aria-label="Visualización decorativa de contribuciones">
-              <div className="heatmap">
-                {contributionLevels.map((level, index) => (
-                  <i className={`level-${level}`} key={`${index}-${level}`} />
-                ))}
-              </div>
-            </div>
+            {/*
+              GitHub no expone el heatmap de contribuciones en su API publica,
+              asi que mostramos el reparto de lenguajes, que si es calculable.
+            */}
+            <ul className="language-bars">
+              {profile.languages.map((language) => (
+                <li key={language.name}>
+                  <div className="language-bar-head">
+                    <span>{language.name}</span>
+                    <small>{language.share}%</small>
+                  </div>
+                  <div
+                    className="language-bar-track"
+                    role="img"
+                    aria-label={`${language.name}: ${language.share}% de los repositorios`}
+                  >
+                    <span style={{ width: `${language.share}%` }} />
+                  </div>
+                </li>
+              ))}
+            </ul>
 
             <div className="repository-list">
-              <article>
-                <span className="repo-icon">
-                  <GitFork size={18} aria-hidden="true" />
-                </span>
-                <div>
-                  <strong>Portfolio-Website</strong>
-                  <small>Astro, React y Tailwind CSS</small>
-                </div>
-                <span className="repo-stat">
-                  <Star size={14} aria-hidden="true" /> 18
-                </span>
-              </article>
-              <article>
-                <span className="repo-icon secondary">
-                  <GitFork size={18} aria-hidden="true" />
-                </span>
-                <div>
-                  <strong>Data-Analysis-Engine</strong>
-                  <small>Motor de procesamiento con Python</small>
-                </div>
-                <span className="repo-stat">
-                  <Star size={14} aria-hidden="true" /> 12
-                </span>
-              </article>
+              {profile.repos.map((repo) => (
+                <a href={repo.url} key={repo.name} rel="noreferrer" target="_blank">
+                  <span className="repo-icon">
+                    <GitFork size={18} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <strong>{repo.name}</strong>
+                    <small>{repo.description ?? repo.language ?? 'Sin descripción'}</small>
+                  </div>
+                  <span className="repo-stat">
+                    {dateFormatter.format(new Date(repo.pushedAt))}
+                  </span>
+                </a>
+              ))}
             </div>
+
+            <p className="github-footnote">
+              Datos obtenidos de la API pública de GitHub en cada despliegue ·{' '}
+              <a href={contact.github} rel="noreferrer" target="_blank">
+                @{contact.githubUser}
+              </a>
+            </p>
           </div>
         </div>
       </div>

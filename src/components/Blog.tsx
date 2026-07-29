@@ -6,7 +6,7 @@ export default function Blog() {
   return (
     <section className="content-section section-shell reveal-section" id="blog">
       <div className="blog-heading">
-        <SectionHeading title="Notas y pensamientos" />
+        <SectionHeading kicker="Escritos" title="Notas y pensamientos" />
         <a href="#contact">
           Ver todo el blog
           <ArrowRight size={18} aria-hidden="true" />
@@ -26,7 +26,7 @@ export default function Blog() {
             <h3>{post.title}</h3>
             <p>{post.excerpt}</p>
             <div className="post-author">
-              <img src="/images/portfolio-01.jpg" alt="" loading="lazy" />
+              <img src="/images/portfolio-01.webp" alt="" width="512" height="512" loading="lazy" />
               <div>
                 <strong>Leonardo Matías</strong>
                 <span>4 min de lectura</span>

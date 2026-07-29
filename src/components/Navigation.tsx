@@ -1,8 +1,25 @@
-import { BriefcaseBusiness, Code2, Home, Menu, Send, UserRound, Wrench, X } from 'lucide-react';
+import {
+  BriefcaseBusiness,
+  Clock3,
+  Code2,
+  Home,
+  Menu,
+  Send,
+  UserRound,
+  Wrench,
+  X,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { navigation } from '../data/portfolio';
 
-const mobileIcons = [Home, UserRound, Code2, Wrench, Send] as const;
+const navIcons = {
+  home: Home,
+  user: UserRound,
+  timeline: Clock3,
+  projects: Code2,
+  tech: Wrench,
+  contact: Send,
+} as const;
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,8 +103,8 @@ export default function Navigation() {
           </button>
         </div>
         <nav aria-label="Navegación móvil">
-          {navigation.map((item, index) => {
-            const Icon = mobileIcons[index];
+          {navigation.map((item) => {
+            const Icon = navIcons[item.icon];
             const id = item.href.slice(1);
             return (
               <a

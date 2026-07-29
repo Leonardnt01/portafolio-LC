@@ -1,4 +1,5 @@
 import { ArrowUp, GitFork, Link2 } from 'lucide-react';
+import { contact } from '../data/portfolio';
 
 export default function Footer() {
   return (
@@ -10,14 +11,16 @@ export default function Footer() {
           </a>
           <p>Diseño, datos y desarrollo con intención.</p>
         </div>
-        <p>© {new Date().getFullYear()} Leonardo Matías Condori Navarro.</p>
+        <p>© {new Date().getFullYear()} {contact.name}.</p>
         <div className="footer-links">
-          <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub">
+          <a href={contact.github} target="_blank" rel="noreferrer" aria-label="GitHub">
             <GitFork size={19} />
           </a>
-          <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-            <Link2 size={19} />
-          </a>
+          {contact.linkedin ? (
+            <a href={contact.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <Link2 size={19} />
+            </a>
+          ) : null}
           <a href="#home" aria-label="Volver al inicio">
             <ArrowUp size={19} />
           </a>
