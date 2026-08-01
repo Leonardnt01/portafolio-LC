@@ -1,4 +1,4 @@
-import { Briefcase, GraduationCap, Languages, MapPin } from 'lucide-react';
+import { Briefcase, Database, GraduationCap, Languages, MapPin, ServerCog } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 
 const facts = [
@@ -40,29 +40,26 @@ export default function About() {
           </div>
         </div>
 
-        <div className="about-gallery" aria-label="Espacio de trabajo de desarrollo">
-          <figure className="gallery-image gallery-image-main">
-            <img
-              src="/images/portfolio-02.webp"
-              alt="Teclado mecánico en un espacio de desarrollo moderno"
-              width="512"
-              height="279"
-              loading="lazy"
-            />
-          </figure>
-          <figure className="gallery-image gallery-image-offset">
-            <img
-              src="/images/portfolio-03.webp"
-              alt="Monitores con código y visualizaciones de datos"
-              width="512"
-              height="279"
-              loading="lazy"
-            />
-          </figure>
-          <div className="experience-note">
-            <strong>Full Stack</strong>
-            <span>Producto, datos y código</span>
+        <div className="about-evidence glass-card" aria-label="Enfoque profesional">
+          <p className="about-evidence-kicker">Cómo aporto</p>
+          <h3>Producto completo, decisiones con datos.</h3>
+          <div className="about-evidence-list">
+            <article>
+              <span><ServerCog size={20} aria-hidden="true" /></span>
+              <div>
+                <strong>Full Stack</strong>
+                <p>Interfaces, APIs, bases de datos y despliegues pensados como un solo producto.</p>
+              </div>
+            </article>
+            <article>
+              <span><Database size={20} aria-hidden="true" /></span>
+              <div>
+                <strong>Datos</strong>
+                <p>Limpieza, análisis y visualizaciones para convertir información en decisiones.</p>
+              </div>
+            </article>
           </div>
+          <p className="about-evidence-note">Cada proyecto enlaza su código y explica las decisiones que lo sostienen.</p>
         </div>
       </div>
     </section>
