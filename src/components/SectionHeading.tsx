@@ -1,6 +1,6 @@
 interface SectionHeadingProps {
   title: string;
-  /** Etiqueta corta que da contexto propio a cada seccion. */
+
   kicker: string;
   description?: string;
   align?: 'left' | 'center';
