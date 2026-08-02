@@ -1,11 +1,7 @@
 ---
 import PortfolioApp from '../components/PortfolioApp';
-import { contact, featuredRepositoryNames } from '../data/portfolio';
-import { fetchGithubProfile } from '../lib/github';
+import { contact } from '../data/portfolio';
 import '../styles/global.css';
-
-// Se resuelve en build: el navegador no hace ninguna peticion a GitHub.
-const githubProfile = await fetchGithubProfile(contact.githubUser, featuredRepositoryNames);
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/images/portfolio-01.jpg', Astro.site).href;
@@ -94,6 +90,6 @@ const personSchema = {
     <noscript><link rel="stylesheet" href="/tech-icons.css" /></noscript>
   </head>
   <body>
-    <PortfolioApp client:load githubProfile={githubProfile} />
+    <PortfolioApp client:load />
   </body>
 </html>

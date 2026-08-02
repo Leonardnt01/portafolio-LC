@@ -68,7 +68,6 @@ export const contact = {
   role: 'Software Engineer',
   location: 'Lima, Perú',
   email: 'leonardo.matias.01@hotmail.com',
-  githubUser: 'Leonardnt01',
   github: 'https://github.com/Leonardnt01',
   // TODO(datos): anadir la URL real del perfil de LinkedIn.
   linkedin: '',
@@ -101,12 +100,6 @@ export const roles = [
   'Python y SQL',
   'React y PostgreSQL',
 ] as const;
-
-/**
- * Repositorios que respaldan los proyectos de la portada. Se priorizan sobre
- * el orden cronologico para que GitHub no oculte la evidencia importante.
- */
-export const featuredRepositoryNames = ['filo-estilo', 'proyecto_Python'] as const;
 
 /**
  * Solo proyectos reales, con repositorio publico verificable.
@@ -194,7 +187,7 @@ export const education: EducationItem[] = [
     summary:
       'Formación centrada en el diseño de soluciones eficientes, con enfoque analítico para resolver problemas complejos.',
     highlights: [],
-    stack: ['Python', 'Java', 'SQL'],
+    stack: ['Python', 'TypeScript', 'JavaScript', 'PostgreSQL', 'Docker'],
   },
 ];
 

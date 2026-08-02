@@ -1,7 +1,5 @@
 [
   { "id": "python", "name": "Python", "slug": "python", "category": "lenguajes", "hex": "#4B8BBE" },
-  { "id": "java", "name": "Java", "slug": "openjdk", "category": "lenguajes", "hex": "#F89820" },
-  { "id": "cplusplus", "name": "C++", "slug": "cplusplus", "category": "lenguajes", "hex": "#659AD2" },
   { "id": "javascript", "name": "JavaScript", "slug": "javascript", "category": "lenguajes", "hex": "#F7DF1E" },
   { "id": "typescript", "name": "TypeScript", "slug": "typescript", "category": "lenguajes", "hex": "#4FA3FF" },
   { "id": "html", "name": "HTML", "slug": "html5", "category": "lenguajes", "hex": "#FF7A59" },
@@ -10,7 +8,6 @@
   { "id": "astro", "name": "Astro", "slug": "astro", "category": "frontend", "hex": "#FF8B5C" },
   { "id": "tailwind", "name": "Tailwind CSS", "slug": "tailwindcss", "category": "frontend", "hex": "#5EEAD4" },
   { "id": "nextjs", "name": "Next.js", "slug": "nextdotjs", "category": "frontend", "hex": "#E5E7EB" },
-  { "id": "flutter", "name": "Flutter", "slug": "flutter", "category": "frontend", "hex": "#5AC8FA" },
   { "id": "figma", "name": "Figma", "slug": "figma", "category": "frontend", "hex": "#F78FB3" },
   { "id": "nodejs", "name": "Node.js", "slug": "nodedotjs", "category": "backend", "hex": "#8CC84B" },
   { "id": "express", "name": "Express", "slug": "express", "category": "backend", "hex": "#D1D5DB" },
