@@ -80,7 +80,7 @@ export default function Hero() {
           <span className="portrait-orbit orbit-two" aria-hidden="true" />
           <div className="portrait-frame">
             <img
-              src="/images/portfolio-01.jpg"
+              src="/images/ProfilGithub.jpg"
               alt="Leonardo Matías Condori Navarro"
               width="512"
               height="512"

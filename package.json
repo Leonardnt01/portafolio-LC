@@ -6,8 +6,8 @@
     "node": "18.20.8 || ^20.3.0 || >=22.0.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build && node scripts/stage-sites.mjs",
+    "dev": "node init && astro dev",
+    "build": "node init && astro build && node scripts/stage-sites.mjs",
     "check": "astro check",
     "preview": "astro preview",
     "astro": "astro"
