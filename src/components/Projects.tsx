@@ -1,4 +1,4 @@
-import { ArrowUpRight, Code2 } from 'lucide-react';
+import { ArrowUpRight, BookOpen, Code2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { projects, technologies, type ProjectCategory } from '../data/portfolio';
 import SectionHeading from './SectionHeading';
@@ -93,6 +93,10 @@ export default function Projects() {
 
                 {project.demoUrl || project.repoUrl ? (
                   <div className="project-actions">
+                    <a className="text-link" href={`/proyectos/${project.slug}/`}>
+                      Ver caso
+                      <BookOpen size={18} aria-hidden="true" />
+                    </a>
                     {project.demoUrl ? (
                       <a className="text-link" href={project.demoUrl} rel="noreferrer" target="_blank">
                         Ver demo
@@ -107,7 +111,14 @@ export default function Projects() {
                       </a>
                     ) : null}
                   </div>
-                ) : null}
+                ) : (
+                  <div className="project-actions">
+                    <a className="text-link" href={`/proyectos/${project.slug}/`}>
+                      Ver caso
+                      <BookOpen size={18} aria-hidden="true" />
+                    </a>
+                  </div>
+                )}
               </div>
             </article>
           ))}

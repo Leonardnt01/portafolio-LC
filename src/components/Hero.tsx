@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, Download, GitFork, Link2 } from 'lucide-react';
+import { ArrowDown, ArrowRight, GitFork, Link2, Mail } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { contact, roles } from '../data/portfolio';
 
@@ -43,7 +43,7 @@ export default function Hero() {
           </span>
           <p className="hero-eyebrow">Hola, soy</p>
           <h1>Leonardo Matías Condori Navarro</h1>
-          <p className="hero-subtitle">Estudiante de Ingeniería de Software</p>
+          <p className="hero-subtitle">Desarrollador Full Stack y Datos</p>
           <p className="typed-role" aria-live="polite">
             Soy <span>{roles[roleIndex].slice(0, visibleCharacters)}</span>
             <i aria-hidden="true" />
@@ -54,9 +54,9 @@ export default function Hero() {
               Ver proyectos
               <ArrowRight size={19} aria-hidden="true" />
             </a>
-            <a className="secondary-button" href="/cv-leonardo-condori.txt" download>
-              <Download size={18} aria-hidden="true" />
-              Descargar CV
+            <a className="secondary-button" href="#contact">
+              <Mail size={18} aria-hidden="true" />
+              Hablemos
             </a>
           </div>
 
@@ -80,7 +80,7 @@ export default function Hero() {
           <span className="portrait-orbit orbit-two" aria-hidden="true" />
           <div className="portrait-frame">
             <img
-              src="/images/portfolio-01.webp"
+              src="/images/ProfilGithub.jpg"
               alt="Leonardo Matías Condori Navarro"
               width="512"
               height="512"

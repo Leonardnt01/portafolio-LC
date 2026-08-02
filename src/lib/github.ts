@@ -45,11 +45,22 @@ function headers() {
  * debe ocultar la seccion en ese caso: preferimos no mostrar nada antes que
  * mostrar cifras inventadas, y un rate limit no debe tumbar el build.
  */
-export async function fetchGithubProfile(user: string): Promise<GithubProfile | null> {
+export async function fetchGithubProfile(
+  user: string,
+  featuredRepositoryNames: readonly string[] = [],
+): Promise<GithubProfile | null> {
+  // La actividad de GitHub complementa el portafolio, pero nunca debe impedir
+  // generar el sitio si la API o la red no responde.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+
   try {
     const [profileRes, reposRes] = await Promise.all([
-      fetch(`${API}/users/${user}`, { headers: headers() }),
-      fetch(`${API}/users/${user}/repos?per_page=100&sort=pushed`, { headers: headers() }),
+      fetch(`${API}/users/${user}`, { headers: headers(), signal: controller.signal }),
+      fetch(`${API}/users/${user}/repos?per_page=100&sort=pushed`, {
+        headers: headers(),
+        signal: controller.signal,
+      }),
     ]);
 
     if (!profileRes.ok || !reposRes.ok) {
@@ -89,6 +100,18 @@ export async function fetchGithubProfile(user: string): Promise<GithubProfile | 
       }))
       .sort((a, b) => b.count - a.count);
 
+    const toGithubRepo = (repo: (typeof owned)[number]): GithubRepo => ({
+      name: repo.name,
+      description: repo.description,
+      language: repo.language,
+      url: repo.html_url,
+      pushedAt: repo.pushed_at,
+    });
+    const featured = featuredRepositoryNames
+      .map((name) => owned.find((repo) => repo.name.toLowerCase() === name.toLowerCase()))
+      .filter((repo): repo is (typeof owned)[number] => Boolean(repo));
+    const remaining = owned.filter((repo) => !featured.some((item) => item.name === repo.name));
+
     return {
       login: profile.login,
       name: profile.name ?? profile.login,
@@ -97,18 +120,13 @@ export async function fetchGithubProfile(user: string): Promise<GithubProfile | 
       url: profile.html_url,
       publicRepos: profile.public_repos,
       languages,
-      // 5 para que quepa `proyecto_Python`, que respalda un proyecto destacado
-      // pese a no ser de los mas recientes.
-      repos: owned.slice(0, 5).map((repo) => ({
-        name: repo.name,
-        description: repo.description,
-        language: repo.language,
-        url: repo.html_url,
-        pushedAt: repo.pushed_at,
-      })),
+      // La evidencia de la portada primero; despues, actividad reciente.
+      repos: [...featured, ...remaining].slice(0, 5).map(toGithubRepo),
     };
   } catch (error) {
     console.warn('[github] no se pudieron obtener los datos:', error);
     return null;
+  } finally {
+    clearTimeout(timeoutId);
   }
 }

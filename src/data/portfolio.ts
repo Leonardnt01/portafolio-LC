@@ -4,6 +4,8 @@ export type ProjectCategory = 'Todos' | 'Web' | 'Datos';
 export type TechCategory = 'lenguajes' | 'frontend' | 'backend' | 'datos' | 'devops';
 
 export interface Project {
+  /** Identificador estable para la pagina de caso de estudio. */
+  slug: string;
   title: string;
   description: string;
   /** Sin imagen se muestra un marcador con la inicial: nunca una foto de stock. */
@@ -18,6 +20,13 @@ export interface Project {
   status?: string;
   repoUrl?: string;
   demoUrl?: string;
+  caseStudy: {
+    role: string;
+    architecture: string[];
+    quality: string[];
+    /** Solo se declara para proyectos donde el flujo de datos es parte del aporte. */
+    dataFlow?: string[];
+  };
 }
 
 export interface TechItem {
@@ -87,12 +96,17 @@ export const navigation: NavItem[] = [
 ];
 
 export const roles = [
-  'Software Engineer',
   'Full Stack Developer',
-  'Data Analytics',
-  'Python Developer',
-  'SQL & Power BI',
+  'Full Stack + Datos',
+  'Python y SQL',
+  'React y PostgreSQL',
 ] as const;
+
+/**
+ * Repositorios que respaldan los proyectos de la portada. Se priorizan sobre
+ * el orden cronologico para que GitHub no oculte la evidencia importante.
+ */
+export const featuredRepositoryNames = ['filo-estilo', 'proyecto_Python'] as const;
 
 /**
  * Solo proyectos reales, con repositorio publico verificable.
@@ -103,6 +117,7 @@ export const roles = [
  */
 export const projects: Project[] = [
   {
+    slug: 'filo-estilo',
     title: 'Filo Estilo',
     description:
       'Sistema de reservas online para barberías: catálogo de servicios, agenda por barbero con franjas horarias y panel de administración de citas.',
@@ -116,12 +131,25 @@ export const projects: Project[] = [
       'La base técnica se sostiene sobre pruebas automatizadas: TDD con Vitest, escenarios BDD en Gherkin para los flujos de cliente y de administrador, contrato de API documentado y checklist de QA en el repositorio.',
     status: 'En desarrollo',
     repoUrl: 'https://github.com/Leonardnt01/filo-estilo',
+    caseStudy: {
+      role: 'Desarrollo en equipo',
+      architecture: [
+        'Next.js 16 con App Router y React 19 para separar las experiencias de cliente y administración.',
+        'PostgreSQL para persistir reservas, disponibilidad y datos de gestión.',
+        'Docker para reproducir el entorno de desarrollo y despliegue.',
+      ],
+      quality: [
+        'Pruebas automatizadas con Vitest guiadas por TDD.',
+        'Escenarios BDD en Gherkin para los flujos de cliente y administrador.',
+        'Contrato de API y checklist de QA documentados en el repositorio.',
+      ],
+    },
   },
   {
+    slug: 'analisis-gastos-personales',
     title: 'Análisis de gastos personales',
     description:
       'Script en Python que convierte un extracto mensual de gastos en tres visualizaciones: total por categoría, reparto porcentual y evolución en el tiempo.',
-    image: '/images/proyecto-gastos.webp',
     category: 'Datos',
     technologies: ['Python', 'Pandas'],
     problem:
@@ -131,6 +159,24 @@ export const projects: Project[] = [
     result:
       'Un único comando transforma el extracto en un panel de tres gráficos que revela dónde se concentra el gasto. En los datos de ejemplo, transporte y educación suman la mitad del total.',
     repoUrl: 'https://github.com/Leonardnt01/proyecto_Python',
+    caseStudy: {
+      role: 'Desarrollo individual',
+      architecture: [
+        'Python y pandas para transformar un extracto mensual en una tabla analizable.',
+        'Matplotlib para generar un panel con total por categoría, reparto porcentual y evolución temporal.',
+        'Ejecución por comando para repetir el análisis sin pasos manuales.',
+      ],
+      quality: [
+        'Normalización explícita de moneda peruana, codificación latin-1 y columnas vacías.',
+        'Datos de entrada y resultados separados para mantener el análisis reproducible.',
+      ],
+      dataFlow: [
+        'CSV de gastos',
+        'Limpieza y conversión a valores numéricos',
+        'Agrupación por categoría y fecha',
+        'Visualizaciones y hallazgos',
+      ],
+    },
   },
 ];
 

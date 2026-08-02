@@ -26,7 +26,7 @@ export default function Blog() {
             <h3>{post.title}</h3>
             <p>{post.excerpt}</p>
             <div className="post-author">
-              <img src="/images/portfolio-01.webp" alt="" width="512" height="512" loading="lazy" />
+              <img src="/images/portfolio-01.jpg" alt="" width="512" height="512" loading="lazy" />
               <div>
                 <strong>Leonardo Matías</strong>
                 <span>4 min de lectura</span>
