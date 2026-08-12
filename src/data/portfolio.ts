@@ -112,6 +112,7 @@ export const projects: Project[] = [
   {
     slug: 'filo-estilo',
     title: 'Filo Estilo',
+    image: '/images/filo-estilo.webp',
     description:
       'Sistema de reservas online para barberías: catálogo de servicios, agenda por barbero con franjas horarias y panel de administración de citas.',
     category: 'Web',
