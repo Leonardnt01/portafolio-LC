@@ -4,6 +4,7 @@
   { "id": "typescript", "name": "TypeScript", "slug": "typescript", "category": "lenguajes", "hex": "#4FA3FF" },
   { "id": "html", "name": "HTML", "slug": "html5", "category": "lenguajes", "hex": "#FF7A59" },
   { "id": "css", "name": "CSS", "slug": "css", "category": "lenguajes", "hex": "#4FC3F7" },
+  { "id": "kotlin", "name": "Kotlin", "slug": "kotlin", "category": "lenguajes", "hex": "#9B7DFF" },
   { "id": "react", "name": "React", "slug": "react", "category": "frontend", "hex": "#58C4DC" },
   { "id": "astro", "name": "Astro", "slug": "astro", "category": "frontend", "hex": "#FF8B5C" },
   { "id": "tailwind", "name": "Tailwind CSS", "slug": "tailwindcss", "category": "frontend", "hex": "#5EEAD4" },

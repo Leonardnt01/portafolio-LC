@@ -23,7 +23,8 @@ export interface Project {
   caseStudy: {
     role: string;
     architecture: string[];
-    quality: string[];
+    /** Sin evidencia real (pruebas, documentacion) el bloque no se renderiza. */
+    quality?: string[];
     /** Solo se declara para proyectos donde el flujo de datos es parte del aporte. */
     dataFlow?: string[];
   };
@@ -169,6 +170,27 @@ export const projects: Project[] = [
         'Limpieza y conversión a valores numéricos',
         'Agrupación por categoría y fecha',
         'Visualizaciones y hallazgos',
+      ],
+    },
+  },
+  {
+    slug: 'facilito',
+    title: 'Facilito',
+    description:
+      'Aplicación Android para la administración de bodegas: digitaliza el control de inventario y las operaciones diarias que hoy se llevan en papel.',
+    // Aplicacion movil. Se clasifica como `Web` porque el filtro solo distingue
+    // entre `Web` y `Datos`; anadir `Movil` requiere tocar el tipo y el filtro.
+    category: 'Web',
+    technologies: ['Kotlin', 'Jetpack Compose', 'Firebase', 'Python'],
+    problem:
+      'La administración de una bodega se lleva con papel y lápiz: el registro es manual, se presta a errores de conteo y no deja historial consultable del inventario ni de las ventas.',
+    status: 'En desarrollo',
+    caseStudy: {
+      role: 'Desarrollo individual',
+      architecture: [
+        'Patrón MVVM para separar la lógica de negocio y el estado de las vistas.',
+        'Kotlin con Jetpack Compose para construir la interfaz nativa de Android.',
+        'Firebase como backend para persistir el inventario y los datos de la bodega.',
       ],
     },
   },

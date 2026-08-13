@@ -93,14 +93,16 @@ const description = `${project.title}: ${project.description}`;
             </ul>
           </article>
 
-          <article class="case-card glass-card">
-            <span class="case-card-icon"><CheckCircle2 size={21} aria-hidden="true" /></span>
-            <p class="section-kicker">Calidad</p>
-            <h2>Evidencia técnica</h2>
-            <ul>
-              {project.caseStudy.quality.map((item) => <li>{item}</li>)}
-            </ul>
-          </article>
+          {project.caseStudy.quality ? (
+            <article class="case-card glass-card">
+              <span class="case-card-icon"><CheckCircle2 size={21} aria-hidden="true" /></span>
+              <p class="section-kicker">Calidad</p>
+              <h2>Evidencia técnica</h2>
+              <ul>
+                {project.caseStudy.quality.map((item) => <li>{item}</li>)}
+              </ul>
+            </article>
+          ) : null}
         </section>
 
         {project.caseStudy.dataFlow ? (
